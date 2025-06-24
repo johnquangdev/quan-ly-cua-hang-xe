@@ -12,8 +12,6 @@
 - Cấu hình kết nối cơ sở dữ liệu bằng `.env`
 
 ## Đặt tên theo chuẩn Java (naming convention)
-
-### Tổng hợp
 | Loại         | Quy tắc                             | Ví dụ                                   |
 | ------------ | ----------------------------------- | --------------------------------------- |
 | Class        | PascalCase                          | `LoginForm`, `ProductServiceImpl`       |
@@ -22,6 +20,7 @@
 | Biến thường  | camelCase                           | `userList`, `invoiceId`                 |
 | Constant     | UPPER\_SNAKE\_CASE                  | `MAX_LOGIN_ATTEMPTS`                    |
 | Component UI | `prefix` + Pascal                   | `btnLogin`, `txtUsername`, `tblProduct` |
+
 Component UI – theo kiểu Hungarian Notation biến thể
 | Tiền tố | Loại component |
 | ------- | -------------- |
@@ -33,3 +32,16 @@ Component UI – theo kiểu Hungarian Notation biến thể
 | `pnl`   | JPanel         |
 | `chk`   | JCheckBox      |
 | `rdo`   | JRadioButton   |
+
+##Tóm tắt luồng dữ liệu
+GUI (giao diện)
+  ↓
+IAuthService (tổng hợp các phương thức)
+  ↓
+AuthService (logic xử lý)
+  ↓
+IAuth (interface DAO)
+  ↓
+AuthDao (query DB)
+  ↓
+Postgres (DB)

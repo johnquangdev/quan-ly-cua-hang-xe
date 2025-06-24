@@ -4,10 +4,10 @@ services:
     container_name: java-postgres-db
     restart: always
     environment:
-      POSTGRES_DB: product
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: ${DB_POSTGRES}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - ${DB_PORTS}:5432
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql

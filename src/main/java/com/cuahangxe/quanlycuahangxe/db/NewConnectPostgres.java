@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  * @author gunnguyen
  */
-public class NewConnecPostgres {
+public class NewConnectPostgres {
 
     private static final String URL = com.cuahangxe.quanlycuahangxe.config.LoadEnv.getDbUrl();
     private static final String USERNAME = com.cuahangxe.quanlycuahangxe.config.LoadEnv.getDbUser();
