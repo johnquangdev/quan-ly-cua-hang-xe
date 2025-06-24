@@ -45,3 +45,11 @@ IAuth (interface DAO)
 AuthDao (query DB)
   ↓
 Postgres (DB)
+
+## Khởi chạy PostgreSQL với Docker
+
+Chạy lệnh sau để khởi động PostgreSQL server:
+
+```bash
+docker-compose up -d
+
