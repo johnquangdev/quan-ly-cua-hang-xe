@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.cuahangxe.quanlycuahangxe.db;
+package com.quanlycuahangxe.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,9 +14,9 @@ import java.sql.SQLException;
  */
 public class NewConnectPostgres {
 
-    private static final String URL = com.cuahangxe.quanlycuahangxe.config.LoadEnv.getDbUrl();
-    private static final String USERNAME = com.cuahangxe.quanlycuahangxe.config.LoadEnv.getDbUser();
-    private static final String PASSWORD = com.cuahangxe.quanlycuahangxe.config.LoadEnv.getDbPassword();
+    private static final String URL = com.quanlycuahangxe.config.LoadEnv.getDbUrl();
+    private static final String USERNAME = com.quanlycuahangxe.config.LoadEnv.getDbUser();
+    private static final String PASSWORD = com.quanlycuahangxe.config.LoadEnv.getDbPassword();
 
     private static Connection connection = null;
 

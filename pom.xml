@@ -1,44 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.cuahangxe</groupId>
+
+    <!-- Cập nhật groupId cho đúng package -->
+    <groupId>com.quanlycuahangxe</groupId>
     <artifactId>QuanLyCuaHangXe</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
-        <exec.mainClass>com.cuahangxe.Main</exec.mainClass>
+
+        <!-- Cập nhật lại main class -->
+        <exec.mainClass>com.quanlycuahangxe.Main</exec.mainClass>
     </properties>
+
     <dependencies>
- 
-    <!-- Dotenv -->
-    <dependency>
-        <groupId>io.github.cdimascio</groupId>
-        <artifactId>dotenv-java</artifactId>
-        <version>2.2.0</version>
-    </dependency>
-    
-    <!-- migration -->
-   <dependency>
-  <groupId>org.flywaydb</groupId>
-  <artifactId>flyway-core</artifactId>
-  <version>10.0.0</version>
-    <type>jar</type>
-   </dependency>
 
-<dependency>
-  <groupId>org.flywaydb</groupId>
-  <artifactId>flyway-database-postgresql</artifactId>
-  <version>10.19.0</version>
-  <scope>runtime</scope>
-</dependency>
+        <!-- Dotenv -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>2.2.0</version>
+        </dependency>
 
-   <!-- PostgreSQL JDBC -->
-<dependency>
-  <groupId>org.postgresql</groupId>
-  <artifactId>postgresql</artifactId>
-  <version>42.7.4</version>
-    </dependency>
-</dependencies>
+        <!-- Flyway core -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>10.0.0</version>
+        </dependency>
+
+        <!-- Flyway PostgreSQL -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.19.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- PostgreSQL JDBC -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.4</version>
+        </dependency>
+
+    </dependencies>
+
 </project>
