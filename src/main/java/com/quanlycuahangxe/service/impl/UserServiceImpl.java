@@ -360,8 +360,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ServiceResult<Void> logout(User user) {
         // check status
-        if (user == null) {
-            return ServiceResult.failure("Không có user đang đăng nhập");
+        if (user == null || user.getId() <= 0 || user.getUsername() == null) {
+            return ServiceResult.failure("Không có user hợp lệ đang đăng nhập");
         }
         return ServiceResult.success(null, "Đăng xuất thành công");
     }

@@ -20,6 +20,7 @@ public class TestAuthenticate {
     public static void main(String[] args) {
         testAuthenticateUser_Login();
         testAuthenticateUser_Logout();
+        testAuthenticateUser_LogoutSuccess();
     }
 
     //
@@ -39,12 +40,22 @@ public class TestAuthenticate {
     private static void testAuthenticateUser_Logout() {
         System.err.println("-- test logout");
         User user = new User();
-        user.setId(1);
-        user.setUsername("admin");
-
         ServiceResult<Void> result = userService.logout(user);
         if (result.isSuccess()) {
-            System.out.println("Test OK - Login success: ");
+            System.out.println("Test OK - logout success ");
+        } else {
+            System.err.println("Test FAIL - " + result.getMessage());
+        }
+    }
+
+    private static void testAuthenticateUser_LogoutSuccess() {
+        System.err.println("-- test logout");
+        User user = new User();
+        user.setId(6);
+        user.setUsername("testuser123");
+        ServiceResult<Void> result = userService.logout(user);
+        if (result.isSuccess()) {
+            System.out.println("Test OK - logout success ");
         } else {
             System.err.println("Test FAIL - " + result.getMessage());
         }
