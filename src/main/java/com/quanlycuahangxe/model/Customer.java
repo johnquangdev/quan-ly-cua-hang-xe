@@ -4,48 +4,75 @@
  */
 package com.quanlycuahangxe.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  *
- * @author gunnguyen
+ * @author Minh
  */
 public class Customer {
-
-    private int id;
-    private String fullName;
+    private Long id;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String phone;
+    private String phoneNumber;
     private String address;
+    private LocalDate dateOfBirth;
+    private Gender gender;
+    private boolean active;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String notes;
 
+    public enum Gender {
+        MALE, FEMALE, OTHER
+    }
+
+    // ===== Constructors =====
     public Customer() {
     }
 
-    public Customer(int id, String fullName, String email, String phone, String address, LocalDateTime createdAt) {
+    public Customer(Long id, String firstName, String lastName, String email, String phoneNumber,
+                    String address, LocalDate dateOfBirth, Gender gender, boolean active,
+                    LocalDateTime createdAt, LocalDateTime updatedAt, String notes) {
         this.id = id;
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.active = active;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.notes = notes;
     }
 
-    // Getters & Setters
-    public int getId() {
+    // ===== Getters & Setters =====
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -56,12 +83,12 @@ public class Customer {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAddress() {
@@ -72,6 +99,30 @@ public class Customer {
         this.address = address;
     }
 
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -80,8 +131,38 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    // ===== toString() =====
     @Override
     public String toString() {
-        return fullName + " - " + phone;
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", gender=" + gender +
+                ", active=" + active +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", notes='" + notes + '\'' +
+                '}';
     }
 }

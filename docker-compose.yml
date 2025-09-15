@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:14.10  # Dùng bản tiêu chuẩn thay vì alpine
+    platform: linux/amd64
+    container_name: car_shop_postgres
+    environment:
+      POSTGRES_DB: QUANLYCUAHANGXE
+      POSTGRES_USER: DUCMINH
+      POSTGRES_PASSWORD: minhtran123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
