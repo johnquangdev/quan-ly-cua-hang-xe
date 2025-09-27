@@ -1,10 +1,9 @@
-/target/
-/.env
-*.class
-*.log
-*.iml
-.idea/
-/nbproject/private/
-/build/
-/dist/
-.DS_Store
+# VSCode
+.vscode/
+.env
+
+# JDK
+openJdk-24.jdk/
+
+# Maven
+target/

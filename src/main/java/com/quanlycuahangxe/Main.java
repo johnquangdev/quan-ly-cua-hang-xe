@@ -1,20 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlycuahangxe;
 
-import com.quanlycuahangxe.db.NewConnectPostgres;
 import java.sql.Connection;
 
-/**
- *
- * @author gunnguyen
- */
+import javax.swing.SwingUtilities;
+
+import com.quanlycuahangxe.db.NewConnectPostgres;
+import com.quanlycuahangxe.gui.LoginForm;
+
 public class Main {
 
     public static void main(String[] args) {
-        //connect to db
         Connection conn = NewConnectPostgres.getConnection();
         if (conn != null) {
             System.out.println("Connected to PostgreSQL!");
@@ -22,8 +17,9 @@ public class Main {
             System.out.println("Connection failed!");
             return;
         }
-
-        // run Flyway Migration
-        FlywayMigrator.runMigration();
+        // làm mới database
+        FlywayMigrator.runMigration(); // Migration database
+        // mở cửa sổ login
+        SwingUtilities.invokeLater(() -> new LoginForm().setVisible(true)); // Mở cửa sổ đăng nhập
     }
 }

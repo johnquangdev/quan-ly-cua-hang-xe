@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlycuahangxe;
 
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
 
-/**
- *
- * @author gunnguyen
- */
 public class FlywayMigrator {
 
     public static void runMigration() {
@@ -20,9 +12,8 @@ public class FlywayMigrator {
             String PASSWORD = com.quanlycuahangxe.config.LoadEnv.getDbPassword();
             Flyway flyway = Flyway.configure()
                     .dataSource(URL, USERNAME, PASSWORD)
-                    .locations("classpath:migration") // đổi đúng path nếu bạn dùng thư mục khác
+                    .locations("classpath:migration") // Cấu hình thư mục chứa các script migration
                     .load();
-
             flyway.migrate();
 
             System.out.println("Flyway migration completed successfully.");

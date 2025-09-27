@@ -7,12 +7,13 @@ package com.quanlycuahangxe.utils;
 /**
  *
  * @author gunnguyen
+ * @param <T>
  */
 public class ServiceResult<T> {
 
-    private boolean success;
-    private String message;
-    private T data;
+    private final boolean success;
+    private final String message;
+    private final T data;
 
     private ServiceResult(boolean success, String message, T data) {
         this.success = success;
