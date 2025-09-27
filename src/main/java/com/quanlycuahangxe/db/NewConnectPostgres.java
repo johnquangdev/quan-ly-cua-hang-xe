@@ -1,49 +1,71 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlycuahangxe.db;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
- * @author gunnguyen
- */
+import com.quanlycuahangxe.config.LoadEnv;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 public class NewConnectPostgres {
 
-    private static final String URL = com.quanlycuahangxe.config.LoadEnv.getDbUrl();
-    private static final String USERNAME = com.quanlycuahangxe.config.LoadEnv.getDbUser();
-    private static final String PASSWORD = com.quanlycuahangxe.config.LoadEnv.getDbPassword();
+    private static HikariDataSource dataSource;
 
-    private static Connection connection = null;
-
-    public static Connection getConnection() {
+    static {
         try {
-            if (connection == null) {
-                Class.forName("org.postgresql.Driver");
-                connection = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            }
-        } catch (ClassNotFoundException e) {
-            System.err.println("Không tìm thấy PostgreSQL Driver: " + e.getMessage());
-        } catch (SQLException e) {
-            System.err.println("Lỗi kết nối database: " + e.getMessage());
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(LoadEnv.getDbUrl()); // Cấu hình URL database
+            config.setUsername(LoadEnv.getDbUser()); // Cấu hình tên người dùng database
+            config.setPassword(LoadEnv.getDbPassword()); // Cấu hình mật khẩu database
+            config.setDriverClassName("org.postgresql.Driver");
+
+            // Cấu hình pool kết nối
+            config.setMaximumPoolSize(10);
+            config.setMinimumIdle(2);
+            config.setIdleTimeout(60000);
+            config.setConnectionTimeout(30000);
+            config.setMaxLifetime(600000);
+
+            dataSource = new HikariDataSource(config);
+            System.out.println("HikariCP DataSource initialized successfully.");
+        } catch (Exception e) {
+            System.err.println("Lỗi khởi tạo DataSource: " + e.getMessage()); // Ghi log lỗi
+            e.printStackTrace();
         }
-        return connection;
     }
 
-    public static void closeConnection() {
-        if (connection != null) {
+    // Lấy kết nối từ pool
+    public static Connection getConnection() {
+        try {
+            return dataSource.getConnection();
+        } catch (SQLException e) {
+            System.err.println("Lỗi lấy kết nối từ pool: " + e.getMessage()); // Ghi log lỗi
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static HikariDataSource getDataSource() {
+        return dataSource;
+    }
+
+    // Đóng kết nối (trả về pool)
+    public static void closeConnection(Connection conn) {
+        if (conn != null) {
             try {
-                if (!connection.isClosed()) {
-                    connection.close();
-                    System.out.println("Đã đóng kết nối database!");
-                }
+                conn.close(); // Trả kết nối về pool
             } catch (SQLException e) {
-                System.err.println("Lỗi khi đóng kết nối: " + e.getMessage());
+                System.err.println("Lỗi đóng kết nối: " + e.getMessage()); // Ghi log lỗi
+                e.printStackTrace();
             }
+        }
+    }
+
+    // Đóng datasource khi ứng dụng tắt
+    public static void shutdown() {
+        if (dataSource != null && !dataSource.isClosed()) {
+            dataSource.close();
+            System.out.println("DataSource HikariCP closed.");
         }
     }
 }

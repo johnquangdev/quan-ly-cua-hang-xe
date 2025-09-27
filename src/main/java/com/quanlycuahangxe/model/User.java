@@ -1,23 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlycuahangxe.model;
 
 import java.sql.Timestamp;
 
-/**
- *
- * @author gunnguyen
- */
 public class User {
 
     private int id;
     private String username;
-    private String password;      // dùng khi login
+    private String password;
     private String fullName;
     private String email;
-    private int roleId;           // FK trỏ đến bảng roles
+    private String role; // admin, manager, staff
     private boolean isLocked;
     private Timestamp createdAt;
 
@@ -25,24 +17,24 @@ public class User {
     }
 
     public User(int id, String username, String password, String fullName,
-            String email, int roleId, boolean isLocked, Timestamp createdAt) {
+            String email, String role, boolean isLocked, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
-        this.roleId = roleId;
+        this.role = role;
         this.isLocked = isLocked;
         this.createdAt = createdAt;
     }
 
     public User(String username, String password, String fullName,
-            String email, int roleId, boolean isLocked) {
+            String email, String role, boolean isLocked) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
-        this.roleId = roleId;
+        this.role = role;
         this.isLocked = isLocked;
     }
 
@@ -87,12 +79,12 @@ public class User {
         this.email = email;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public boolean isLocked() {

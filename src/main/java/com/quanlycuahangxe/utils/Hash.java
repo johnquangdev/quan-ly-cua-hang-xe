@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlycuahangxe.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- *
- * @author gunnguyen
- */
 public class Hash {
 
     public static String HashPassword(String password) {
@@ -32,5 +24,14 @@ public class Hash {
             e.printStackTrace();
             return null;
         }
+    }
+
+    // So sánh mật khẩu plain text với mật khẩu đã hash
+    public static boolean VerifyPassword(String plainPassword, String hashedPassword) {
+        if (plainPassword == null || hashedPassword == null) {
+            return false;
+        }
+        String hashedInput = HashPassword(plainPassword);
+        return hashedInput != null && hashedInput.equals(hashedPassword);
     }
 }
