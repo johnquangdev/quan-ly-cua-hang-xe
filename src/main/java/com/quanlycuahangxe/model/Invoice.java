@@ -7,15 +7,13 @@ public class Invoice {
 
     private int id;
     private int customerId;
-    private int userId; // nhân viên (user)
+    private int userId; 
     private LocalDateTime createdAt;
     private double totalAmount;
 
-    // Fields để hiển thị (được lấy từ JOIN)
     private String customerName;
     private String userName;
 
-    // Danh sách item kèm tên sản phẩm
     private List<InvoiceItem> items;
 
     public Invoice() {

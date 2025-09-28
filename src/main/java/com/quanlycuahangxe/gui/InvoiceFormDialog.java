@@ -220,7 +220,6 @@ public class InvoiceFormDialog extends JDialog {
 
     // Tải dữ liệu cho ComboBox nhân viên, khách hàng và sản phẩm
     private void loadStaffCustomerProduct() {
-        // Tải danh sách nhân viên
         comboStaff.removeAllItems();
         ServiceResult<java.util.List<User>> resStaff = userService.getAllUsers();
         if (resStaff.isSuccess()) {
@@ -239,7 +238,7 @@ public class InvoiceFormDialog extends JDialog {
         if (currentUser != null) {
             comboStaff.setSelectedItem(currentUser);
             if ("STAFF".equalsIgnoreCase(currentUser.getRole())) {
-                comboStaff.setEnabled(false); // Nhân viên không thể thay đổi nhân viên tạo hợp đồng
+                comboStaff.setEnabled(false); 
             } else {
                 comboStaff.setEnabled(true);
             }

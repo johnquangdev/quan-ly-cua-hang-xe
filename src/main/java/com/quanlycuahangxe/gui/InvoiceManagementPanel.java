@@ -40,7 +40,7 @@ public class InvoiceManagementPanel extends JPanel {
     private JButton btnRefresh;
 
     private InvoiceService invoiceService = new InvoiceServiceImpl();
-    private User currentUser; // Thêm biến để lưu thông tin người dùng hiện tại
+    private User currentUser; 
 
     public InvoiceManagementPanel(User currentUser) {
         this.currentUser = currentUser;

@@ -8,7 +8,6 @@ public class InvoiceItem {
     private int quantity;
     private double price;
 
-    // Tên sản phẩm để hiển thị (được lấy từ JOIN)
     private String productName;
 
     public InvoiceItem() {

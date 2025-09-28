@@ -29,7 +29,7 @@ public class NewConnectPostgres {
             dataSource = new HikariDataSource(config);
             System.out.println("HikariCP DataSource initialized successfully.");
         } catch (Exception e) {
-            System.err.println("Lỗi khởi tạo DataSource: " + e.getMessage()); // Ghi log lỗi
+            System.err.println("Lỗi khởi tạo DataSource: " + e.getMessage()); 
             e.printStackTrace();
         }
     }
@@ -39,7 +39,7 @@ public class NewConnectPostgres {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            System.err.println("Lỗi lấy kết nối từ pool: " + e.getMessage()); // Ghi log lỗi
+            System.err.println("Lỗi lấy kết nối từ pool: " + e.getMessage()); 
             e.printStackTrace();
             return null;
         }
@@ -53,9 +53,9 @@ public class NewConnectPostgres {
     public static void closeConnection(Connection conn) {
         if (conn != null) {
             try {
-                conn.close(); // Trả kết nối về pool
+                conn.close(); 
             } catch (SQLException e) {
-                System.err.println("Lỗi đóng kết nối: " + e.getMessage()); // Ghi log lỗi
+                System.err.println("Lỗi đóng kết nối: " + e.getMessage()); 
                 e.printStackTrace();
             }
         }

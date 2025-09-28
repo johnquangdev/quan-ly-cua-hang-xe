@@ -17,8 +17,7 @@ import com.quanlycuahangxe.utils.ServiceResult;
  */
 public interface ProductService {
 
-    ServiceResult<Product> createProduct(String name, int brandId, int categoryId, double price,
-            int stockQty, String description);
+    ServiceResult<Product> createProduct(String name, int brandId, int categoryId, double price, int stockQty, String description);
 
     ServiceResult<Product> getProductById(int id);
     ServiceResult<Product> getProductById(Connection conn, int id);
@@ -26,10 +25,8 @@ public interface ProductService {
     ServiceResult<List<Product>> getAllProducts();
     ServiceResult<List<Product>> getAllProducts(Connection conn);
 
-    ServiceResult<Product> updateProduct(int id, String name, int brandId, int categoryId,
-            double price, String description);
-    ServiceResult<Product> updateProduct(Connection conn, int id, String name, int brandId,
-            int categoryId, double price, String description);
+    ServiceResult<Product> updateProduct(int id, String name, int brandId, int categoryId,double price, String description);
+    ServiceResult<Product> updateProduct(Connection conn, int id, String name, int brandId,int categoryId, double price, String description);
 
     ServiceResult<Void> deleteProduct(int id);
     ServiceResult<Void> deleteProduct(Connection conn, int id);

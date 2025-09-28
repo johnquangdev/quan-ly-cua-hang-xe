@@ -1,5 +1,13 @@
 package com.quanlycuahangxe.gui;
 
+import com.quanlycuahangxe.model.InventoryLog;
+import com.quanlycuahangxe.model.Product;
+import com.quanlycuahangxe.service.impl.InventoryLogServiceImpl;
+import com.quanlycuahangxe.service.impl.ProductServiceImpl;
+import com.quanlycuahangxe.service.interfaces.InventoryLogService;
+import com.quanlycuahangxe.service.interfaces.ProductService;
+import com.quanlycuahangxe.utils.IconHelper;
+import com.quanlycuahangxe.utils.ServiceResult;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -10,7 +18,6 @@ import java.awt.Window;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -22,15 +29,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import com.quanlycuahangxe.model.InventoryLog;
-import com.quanlycuahangxe.model.Product;
-import com.quanlycuahangxe.service.impl.InventoryLogServiceImpl;
-import com.quanlycuahangxe.service.impl.ProductServiceImpl;
-import com.quanlycuahangxe.service.interfaces.InventoryLogService;
-import com.quanlycuahangxe.service.interfaces.ProductService;
-import com.quanlycuahangxe.utils.IconHelper;
-import com.quanlycuahangxe.utils.ServiceResult;
 
 public class ImportStockDialog extends JDialog {
 
@@ -117,9 +115,9 @@ public class ImportStockDialog extends JDialog {
         // Panel dưới cùng: nút xóa và lưu phiếu nhập
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         btnRemoveItem = new JButton("Xóa khỏi phiếu");
-        btnRemoveItem.setIcon(IconHelper.loadIcon("delete.png")); // Icon xóa
+        btnRemoveItem.setIcon(IconHelper.loadIcon("delete.png"));
         btnSaveImport = new JButton("Lưu phiếu nhập");
-        btnSaveImport.setIcon(IconHelper.loadIcon("save.png")); // Icon lưu
+        btnSaveImport.setIcon(IconHelper.loadIcon("save.png"));
 
         bottomPanel.add(btnRemoveItem);
         bottomPanel.add(btnSaveImport);
@@ -129,7 +127,6 @@ public class ImportStockDialog extends JDialog {
         // Load data cho combo
         loadProducts();
 
-        // Action listeners
         btnAddItem.addActionListener(e -> addItem());
         btnRemoveItem.addActionListener(e -> removeItem());
         btnSaveImport.addActionListener(e -> saveImport());
@@ -191,7 +188,7 @@ public class ImportStockDialog extends JDialog {
         if (!found) {
             tableModel.addRow(new Object[]{prod, qty, reason});
         }
-        txtQuantity.setText(""); // Xóa số lượng sau khi thêm vào phiếu
+        txtQuantity.setText("");
     }
 
     private void removeItem() {
@@ -211,8 +208,8 @@ public class ImportStockDialog extends JDialog {
         if (confirm == JOptionPane.YES_OPTION) {
             Connection conn = null;
             try {
-                conn = ((ProductServiceImpl) productService).getDataSource().getConnection(); // Lấy kết nối từ DataSource của ProductServiceImpl
-                conn.setAutoCommit(false); // Bắt đầu giao dịch
+                conn = ((ProductServiceImpl) productService).getDataSource().getConnection();
+                conn.setAutoCommit(false);
 
                 boolean allSuccess = true;
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
@@ -225,7 +222,7 @@ public class ImportStockDialog extends JDialog {
                     if (!updateStockRes.isSuccess()) {
                         allSuccess = false;
                         JOptionPane.showMessageDialog(this, "Lỗi cập nhật tồn kho cho sản phẩm " + p.getName() + ": " + updateStockRes.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                        break; // Dừng lại nếu có lỗi
+                        break;
                     }
 
                     // Ghi log nhập kho
@@ -233,37 +230,37 @@ public class ImportStockDialog extends JDialog {
                     if (!addLogRes.isSuccess()) {
                         allSuccess = false;
                         JOptionPane.showMessageDialog(this, "Lỗi ghi log cho sản phẩm " + p.getName() + ": " + addLogRes.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                        break; // Dừng lại nếu có lỗi
+                        break;
                     }
                 }
 
                 if (allSuccess) {
-                    conn.commit(); // Hoàn tất giao dịch
+                    conn.commit();
                     JOptionPane.showMessageDialog(this, "Phiếu nhập kho đã được lưu thành công!");
                     saved = true;
                     dispose();
                 } else {
-                    conn.rollback(); // Hoàn tác giao dịch nếu có lỗi
+                    conn.rollback();
                     JOptionPane.showMessageDialog(this, "Có lỗi xảy ra trong quá trình lưu phiếu nhập kho. Vui lòng kiểm tra log.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
 
             } catch (SQLException e) {
-                e.printStackTrace(); // Ghi log lỗi SQL
+                e.printStackTrace();
                 if (conn != null) {
                     try {
-                        conn.rollback(); // Hoàn tác giao dịch nếu có lỗi SQL
+                        conn.rollback();
                     } catch (SQLException ex) {
-                        ex.printStackTrace(); // Ghi log lỗi khi rollback
+                        ex.printStackTrace();
                     }
                 }
                 JOptionPane.showMessageDialog(this, "Lỗi SQL khi lưu phiếu nhập kho: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             } finally {
                 if (conn != null) {
                     try {
-                        conn.setAutoCommit(true); // Đặt lại chế độ auto-commit
-                        conn.close(); // Đóng kết nối
+                        conn.setAutoCommit(true);
+                        conn.close();
                     } catch (SQLException e) {
-                        e.printStackTrace(); // Ghi log lỗi khi đóng kết nối
+                        e.printStackTrace();
                     }
                 }
             }

@@ -8,15 +8,17 @@ package com.quanlycuahangxe.service.impl;
  *
  * @author gunnguyen
  */
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import com.quanlycuahangxe.dao.BrandDAO;
 import com.quanlycuahangxe.db.NewConnectPostgres;
 import com.quanlycuahangxe.model.Brand;
 import com.quanlycuahangxe.service.interfaces.BrandService;
 import com.quanlycuahangxe.utils.ServiceResult;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-import javax.sql.DataSource;
 
 public class BrandServiceImpl implements BrandService {
 
@@ -30,7 +32,7 @@ public class BrandServiceImpl implements BrandService {
     public ServiceResult<Brand> createBrand(String name, String description) {
         try (Connection conn = dataSource.getConnection()) {
             BrandDAO brandDAO = new BrandDAO();
-            Brand brand = new Brand(); // dùng constructor mặc định
+            Brand brand = new Brand(); 
             brand.setName(name);
             brand.setDescription(description);
 

@@ -9,7 +9,7 @@ public class User {
     private String password;
     private String fullName;
     private String email;
-    private String role; // admin, manager, staff
+    private String role; 
     private boolean isLocked;
     private Timestamp createdAt;
 

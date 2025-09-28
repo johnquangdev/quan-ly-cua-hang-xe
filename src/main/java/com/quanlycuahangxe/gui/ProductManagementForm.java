@@ -1,21 +1,5 @@
 package com.quanlycuahangxe.gui;
 
-import java.awt.Dialog;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Window;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField; // Thêm import này
-
 import com.quanlycuahangxe.model.Brand;
 import com.quanlycuahangxe.model.Category;
 import com.quanlycuahangxe.model.Product;
@@ -27,6 +11,20 @@ import com.quanlycuahangxe.service.interfaces.CategoryService;
 import com.quanlycuahangxe.service.interfaces.ProductService;
 import com.quanlycuahangxe.utils.CurrencyHelper;
 import com.quanlycuahangxe.utils.ServiceResult;
+import java.awt.Dialog;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Window;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class ProductManagementForm extends JDialog {
 
@@ -34,27 +32,27 @@ public class ProductManagementForm extends JDialog {
     private JTextArea txtDescription;
     private JComboBox<Category> comboCategory;
     private JComboBox<Brand> comboBrand;
-    private JButton btnSave, btnAddCategory, btnAddBrand; // Khôi phục khai báo
+    private JButton btnSave, btnAddCategory, btnAddBrand;
 
     private ProductService productService = new ProductServiceImpl();
     private CategoryService categoryService = new CategoryServiceImpl();
     private BrandService brandService = new BrandServiceImpl();
 
-    private Product product; // nếu edit
+    private Product product;
     private ProductManagementPanel parentPanel;
-    private Window ownerWindow; // Thêm biến để lưu owner window
+    private Window ownerWindow;
 
     // Thay đổi constructor để chấp nhận Window làm owner
     public ProductManagementForm(Window owner, Product product,
             ProductManagementPanel parentPanel) {
         super(owner, product == null ? "Thêm sản phẩm" : "Sửa sản phẩm",
-                Dialog.ModalityType.APPLICATION_MODAL); // Sử dụng Dialog.ModalityType
+                Dialog.ModalityType.APPLICATION_MODAL);
         this.product = product;
         this.parentPanel = parentPanel;
-        this.ownerWindow = owner; // Lưu owner window
+        this.ownerWindow = owner;
 
         setSize(500, 450);
-        setLocationRelativeTo(owner); // Đặt vị trí tương đối với owner
+        setLocationRelativeTo(owner);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -66,8 +64,8 @@ public class ProductManagementForm extends JDialog {
         comboCategory = new JComboBox<>();
         comboBrand = new JComboBox<>();
         btnSave = new JButton("Lưu");
-        btnAddCategory = new JButton("+"); // Khôi phục khởi tạo
-        btnAddBrand = new JButton("+"); // Khôi phục khởi tạo
+        btnAddCategory = new JButton("+");
+        btnAddBrand = new JButton("+");
 
         int row = 0;
 
@@ -90,14 +88,13 @@ public class ProductManagementForm extends JDialog {
         gbc.gridwidth = 1;
 
         // Đã xóa trường số lượng
-
         gbc.gridx = 0;
         gbc.gridy = row;
         add(new JLabel("Category:"), gbc);
         gbc.gridx = 1;
         add(comboCategory, gbc);
         gbc.gridx = 2;
-        add(btnAddCategory, gbc); // Khôi phục thêm vào layout
+        add(btnAddCategory, gbc);
         row++;
 
         gbc.gridx = 0;
@@ -140,7 +137,7 @@ public class ProductManagementForm extends JDialog {
             String name = JOptionPane.showInputDialog(this, "Tên Category mới:");
             if (name != null && !name.isBlank()) {
                 categoryService.createCategory(name, "");
-                loadCategoriesAndBrands(); // cập nhật combo
+                loadCategoriesAndBrands();
             }
         });
 
@@ -149,7 +146,7 @@ public class ProductManagementForm extends JDialog {
             String name = JOptionPane.showInputDialog(this, "Tên Brand mới:");
             if (name != null && !name.isBlank()) {
                 brandService.createBrand(name, "");
-                loadCategoriesAndBrands(); // cập nhật combo
+                loadCategoriesAndBrands();
             }
         });
 

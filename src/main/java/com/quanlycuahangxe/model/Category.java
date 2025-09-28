@@ -30,7 +30,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return name; // Hiển thị tên category trong combo box
+        return name; 
     }
 
     // Getter & Setter
