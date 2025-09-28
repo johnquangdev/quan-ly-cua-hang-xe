@@ -154,6 +154,8 @@ public class InvoiceManagementPanel extends JPanel {
             txtSearch.setText("");
             loadInvoices(null);
         });
+
+        loadInvoices();
     }
 
     public void loadInvoices() {

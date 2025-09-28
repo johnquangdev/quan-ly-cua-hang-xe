@@ -67,7 +67,15 @@ public class MainForm extends JFrame {
 
         JButton btnProduct = new JButton("Quản lý sản phẩm");
         btnProduct.setIcon(IconHelper.loadIcon("product.png", 20, 20));
-        btnProduct.addActionListener(e -> setContent(new ProductManagementPanel()));
+        btnProduct.addActionListener(e -> {
+            String role = currentUser.getRole().toUpperCase();
+            if (role.equals("STAFF")) {
+                JOptionPane.showMessageDialog(this, "Bạn không có quyền xem quản lý sản phẩm",
+                        "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            setContent(new ProductManagementPanel());
+        });
         sideMenu.add(btnProduct);
 
         JButton btnStaff = new JButton("Quản lý nhân sự");
