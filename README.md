@@ -123,6 +123,30 @@ Dự án được tổ chức theo kiến trúc phân lớp, sử dụng các g�
         java -jar target/quanlycuahangxe-1.0-SNAPSHOT.jar
         ```
 
+### Chạy ứng dụng bằng script (khuyến nghị)
+
+Để đơn giản hóa quá trình xây dựng và chạy, bạn có thể sử dụng các script được cung cấp:
+
+*   **Trên Linux/macOS:**
+    Mở terminal trong thư mục gốc của dự án và chạy:
+    ```bash
+    chmod +x run.sh # Cấp quyền thực thi cho script
+    ./run.sh
+    ```
+
+*   **Trên Windows:**
+    Mở Command Prompt hoặc PowerShell trong thư mục gốc của dự án và chạy:
+    ```cmd
+    run.bat
+    ```
+
+Các script này sẽ tự động thực hiện các bước sau:
+1.  Build dự án bằng Maven, tạo ra một file JAR thực thi (`quan-ly-cua-hang-xe-1.0-SNAPSHOT.jar`).
+2.  Kiểm tra sự tồn tại của file `.env`.
+3.  Chạy ứng dụng Java từ file JAR đã tạo.
+
+**Lưu ý:** Đảm bảo rằng cơ sở dữ liệu PostgreSQL đã được khởi động và file `.env` đã được cấu hình đúng trước khi chạy script.
+
 ### Tài khoản Admin mặc định
 - **Tên đăng nhập**: `Admin`
 - **Mật khẩu**: `Admin@123`
