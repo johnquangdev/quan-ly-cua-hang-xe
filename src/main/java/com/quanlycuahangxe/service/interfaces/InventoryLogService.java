@@ -11,9 +11,9 @@ public interface InventoryLogService {
 
     /**
      * @param conn
-     * @param productId ID của sản phẩm
-     * @param changeAmount Số lượng thay đổi (âm là xuất, dương là nhập)
-     * @param reason Lý do thay đổi
+     * @param productId 
+     * @param changeAmount 
+     * @param reason 
      * @return ServiceResult chứa bản ghi log đã tạo.
      * @throws java.sql.SQLException
      */
@@ -21,7 +21,7 @@ public interface InventoryLogService {
     ServiceResult<InventoryLog> addLog(Connection conn, int productId, int changeAmount, String reason) throws SQLException;
 
     /**
-     * @param productId ID của sản phẩm
+     * @param productId 
      * @return ServiceResult chứa danh sách các bản ghi log.
      * @throws java.sql.SQLException
      */

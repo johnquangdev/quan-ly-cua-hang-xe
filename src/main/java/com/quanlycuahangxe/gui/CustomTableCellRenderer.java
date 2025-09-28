@@ -24,7 +24,6 @@ public class CustomTableCellRenderer extends DefaultTableCellRenderer {
                 c.setBackground(ODD_ROW_COLOR);
             }
         }
-        // If selected, use default selection color
 
         setText(value != null ? value.toString() : "");
         return c;

@@ -1,10 +1,14 @@
 package com.quanlycuahangxe.gui;
 
+import com.quanlycuahangxe.model.User;
+import com.quanlycuahangxe.service.impl.UserServiceImpl;
+import com.quanlycuahangxe.service.interfaces.UserService;
+import com.quanlycuahangxe.utils.IconHelper;
+import com.quanlycuahangxe.utils.ServiceResult;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets; // Import IconHelper
-
+import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,18 +19,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import com.quanlycuahangxe.model.User;
-import com.quanlycuahangxe.service.impl.UserServiceImpl;
-import com.quanlycuahangxe.service.interfaces.UserService;
-import com.quanlycuahangxe.utils.IconHelper;
-import com.quanlycuahangxe.utils.ServiceResult;
-
 public class LoginForm extends JFrame {
 
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnLogin;
-    private ImageIcon logoIcon; 
+    private ImageIcon logoIcon;
 
     private final UserService userService = new UserServiceImpl();
 
@@ -47,12 +45,12 @@ public class LoginForm extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Add logo
-        logoIcon = IconHelper.loadIcon("logo.png", 60, 60); // Initialize logoIcon
+        logoIcon = IconHelper.loadIcon("logo.png", 60, 60);
         JLabel logoLabel = new JLabel(logoIcon);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2; // Span across two columns
-        gbc.anchor = GridBagConstraints.CENTER; // Center the logo
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         panel.add(logoLabel, gbc);
 
         gbc.gridwidth = 1;
@@ -60,27 +58,27 @@ public class LoginForm extends JFrame {
 
         JLabel lblUsername = new JLabel("Tài khoản:");
         gbc.gridx = 0;
-        gbc.gridy = 1; 
+        gbc.gridy = 1;
         panel.add(lblUsername, gbc);
 
         txtUsername = new JTextField(20);
         gbc.gridx = 1;
-        gbc.gridy = 1; 
+        gbc.gridy = 1;
         panel.add(txtUsername, gbc);
 
         JLabel lblPassword = new JLabel("Mật khẩu:");
         gbc.gridx = 0;
-        gbc.gridy = 2; 
+        gbc.gridy = 2;
         panel.add(lblPassword, gbc);
 
         txtPassword = new JPasswordField(20);
         gbc.gridx = 1;
-        gbc.gridy = 2; 
+        gbc.gridy = 2;
         panel.add(txtPassword, gbc);
 
         btnLogin = new JButton("Đăng nhập");
         gbc.gridx = 1;
-        gbc.gridy = 3; 
+        gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(btnLogin, gbc);
 

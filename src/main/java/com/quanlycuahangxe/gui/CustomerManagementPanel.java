@@ -1,13 +1,20 @@
 package com.quanlycuahangxe.gui;
 
+import com.quanlycuahangxe.model.Customer;
+import com.quanlycuahangxe.model.Invoice;
+import com.quanlycuahangxe.service.impl.CustomerServiceImpl;
+import com.quanlycuahangxe.service.impl.InvoiceServiceImpl;
+import com.quanlycuahangxe.service.interfaces.CustomerService;
+import com.quanlycuahangxe.service.interfaces.InvoiceService;
+import com.quanlycuahangxe.utils.IconHelper;
+import com.quanlycuahangxe.utils.ServiceResult;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.FlowLayout; // Thêm import này
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.time.format.DateTimeFormatter; // Thêm import này
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -18,15 +25,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-
-import com.quanlycuahangxe.model.Customer;
-import com.quanlycuahangxe.model.Invoice;
-import com.quanlycuahangxe.service.impl.CustomerServiceImpl;
-import com.quanlycuahangxe.service.impl.InvoiceServiceImpl;
-import com.quanlycuahangxe.service.interfaces.CustomerService;
-import com.quanlycuahangxe.service.interfaces.InvoiceService;
-import com.quanlycuahangxe.utils.IconHelper;
-import com.quanlycuahangxe.utils.ServiceResult;
 
 public class CustomerManagementPanel extends JPanel {
 
@@ -46,9 +44,9 @@ public class CustomerManagementPanel extends JPanel {
         txtSearch = new JTextField();
         txtSearch.setPreferredSize(new Dimension(300, 30));
         btnSearch = new JButton("Tìm kiếm");
-        btnSearch.setIcon(IconHelper.loadIcon("search.png")); // Icon tìm kiếm
+        btnSearch.setIcon(IconHelper.loadIcon("search.png"));
         btnRefresh = new JButton("Làm mới");
-        btnRefresh.setIcon(IconHelper.loadIcon("refresh.png")); // Icon làm mới
+        btnRefresh.setIcon(IconHelper.loadIcon("refresh.png"));
 
         panelSearch.add(new JLabel("Tìm kiếm:"));
         panelSearch.add(txtSearch);
@@ -71,14 +69,13 @@ public class CustomerManagementPanel extends JPanel {
         // Panel chứa các nút chức năng
         JPanel panelButtons = new JPanel(new GridLayout(1, 0, 10, 0));
         btnAdd = new JButton("Thêm");
-        btnAdd.setIcon(IconHelper.loadIcon("add.png")); // Icon thêm
+        btnAdd.setIcon(IconHelper.loadIcon("add.png")); 
         btnEdit = new JButton("Sửa");
-        btnEdit.setIcon(IconHelper.loadIcon("edit.png")); // Icon sửa
+        btnEdit.setIcon(IconHelper.loadIcon("edit.png")); 
         btnDelete = new JButton("Xóa");
-        btnDelete.setIcon(IconHelper.loadIcon("delete.png")); // Icon xóa
+        btnDelete.setIcon(IconHelper.loadIcon("delete.png")); 
         btnViewInvoices = new JButton("Lịch sử mua hàng");
-        btnViewInvoices.setIcon(IconHelper.loadIcon("invoice.png")); // Icon hóa đơn
-
+        btnViewInvoices.setIcon(IconHelper.loadIcon("invoice.png")); 
         panelButtons.add(btnAdd);
         panelButtons.add(btnEdit);
         panelButtons.add(btnDelete);
@@ -90,7 +87,7 @@ public class CustomerManagementPanel extends JPanel {
         btnAdd.addActionListener(e -> openAddForm());
         btnEdit.addActionListener(e -> openEditForm());
         btnDelete.addActionListener(e -> deleteCustomer());
-        btnRefresh.addActionListener(e -> loadCustomers(null)); // Làm mới toàn bộ danh sách
+        btnRefresh.addActionListener(e -> loadCustomers(null)); 
         btnSearch.addActionListener(e -> loadCustomers(txtSearch.getText()));
         btnViewInvoices.addActionListener(e -> handleViewCustomerInvoices());
 
@@ -99,7 +96,7 @@ public class CustomerManagementPanel extends JPanel {
     }
 
     private void loadCustomers(String keyword) {
-        tableModel.setRowCount(0); // clear
+        tableModel.setRowCount(0); 
         ServiceResult<List<Customer>> result;
         if (keyword == null || keyword.trim().isEmpty()) {
             result = customerService.getAllCustomers();
@@ -108,11 +105,11 @@ public class CustomerManagementPanel extends JPanel {
         }
 
         if (result.isSuccess()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); // Định dạng ngày tháng
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); 
             for (Customer c : result.getData()) {
-                String formattedDate = (c.getCreatedAt() != null) ? formatter.format(c.getCreatedAt()) : "N/A"; // Định dạng ngày
+                String formattedDate = (c.getCreatedAt() != null) ? formatter.format(c.getCreatedAt()) : "N/A"; 
                 tableModel.addRow(new Object[]{c.getId(), c.getFullName(), c.getEmail(),
-                    c.getPhone(), c.getAddress(), formattedDate}); // Sử dụng ngày đã định dạng
+                    c.getPhone(), c.getAddress(), formattedDate}); 
             }
         } else {
             JOptionPane.showMessageDialog(this, "Lỗi tải dữ liệu: " + result.getMessage());
@@ -122,10 +119,11 @@ public class CustomerManagementPanel extends JPanel {
     private void openAddForm() {
         // Truyền owner là Window của panel hiện tại
         CustomerForm form = new CustomerForm(SwingUtilities.getWindowAncestor(this),
-                "Thêm Khách hàng", null, this); // Mở form thêm khách hàng
+                "Thêm Khách hàng", null, this); 
         form.setVisible(true);
-        loadCustomers(null); // Tải lại danh sách khách hàng sau khi thêm
+        loadCustomers(null); 
     }
+
     // Phương thức làm mới danh sách khách hàng
     public void refreshCustomers() {
         loadCustomers(null);
@@ -142,9 +140,9 @@ public class CustomerManagementPanel extends JPanel {
         if (result.isSuccess()) {
             // Truyền owner là Window của panel hiện tại
             CustomerForm form = new CustomerForm(SwingUtilities.getWindowAncestor(this),
-                    "Sửa Khách hàng", result.getData(), this); // Mở form sửa khách hàng
+                    "Sửa Khách hàng", result.getData(), this); 
             form.setVisible(true);
-            loadCustomers(null); // Tải lại danh sách khách hàng sau khi sửa
+            loadCustomers(null); 
         }
     }
 
@@ -191,14 +189,13 @@ public class CustomerManagementPanel extends JPanel {
             }
             JTable invoiceHistoryTable = new JTable(invoiceHistoryModel);
 
-            // Hiển thị trong một dialog mới
             // Hiển thị lịch sử hóa đơn trong một dialog mới
             JDialog historyDialog = new JDialog(SwingUtilities.getWindowAncestor(this),
-                    "Lịch sử mua hàng của " + customerName, Dialog.ModalityType.APPLICATION_MODAL); // Tạo dialog lịch sử
-            historyDialog.add(new JScrollPane(invoiceHistoryTable)); // Thêm bảng vào scroll pane
-            historyDialog.setSize(600, 400); // Kích thước dialog
-            historyDialog.setLocationRelativeTo(this); // Hiển thị ở giữa
-            historyDialog.setVisible(true); // Hiển thị dialog
+                    "Lịch sử mua hàng của " + customerName, Dialog.ModalityType.APPLICATION_MODAL); 
+            historyDialog.add(new JScrollPane(invoiceHistoryTable)); 
+            historyDialog.setSize(600, 400); 
+            historyDialog.setLocationRelativeTo(this); 
+            historyDialog.setVisible(true); 
 
         } else {
             JOptionPane.showMessageDialog(this,

@@ -1,14 +1,5 @@
 package com.quanlycuahangxe.service.impl;
 
-import java.awt.Component;
-import java.awt.Window;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.sql.DataSource;
-import javax.swing.SwingUtilities;
-
 import com.quanlycuahangxe.dao.InvoiceDAO;
 import com.quanlycuahangxe.db.NewConnectPostgres;
 import com.quanlycuahangxe.model.Invoice;
@@ -18,6 +9,13 @@ import com.quanlycuahangxe.service.interfaces.InventoryLogService;
 import com.quanlycuahangxe.service.interfaces.InvoiceService;
 import com.quanlycuahangxe.service.interfaces.ProductService;
 import com.quanlycuahangxe.utils.ServiceResult;
+import java.awt.Component;
+import java.awt.Window;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.sql.DataSource;
+import javax.swing.SwingUtilities;
 
 public class InvoiceServiceImpl implements InvoiceService {
 
@@ -120,10 +118,10 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
         // Cập nhật số lượng tồn kho
-        ServiceResult<Product> updateStockResult =
-                productService.updateStock(conn, productId, -quantity); // Trừ đi số lượng
+        ServiceResult<Product> updateStockResult
+                = productService.updateStock(conn, productId, -quantity);
         if (!updateStockResult.isSuccess()) {
-            invoiceDAO.removeInvoiceItem(conn, it.getId()); // Cố gắng rollback
+            invoiceDAO.removeInvoiceItem(conn, it.getId());
             return ServiceResult.failure("Thêm item thành công nhưng không thể cập nhật tồn kho: "
                     + updateStockResult.getMessage());
         }
@@ -186,8 +184,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         // Lấy tất cả các item của hóa đơn để hoàn trả số lượng
         List<InvoiceItem> items = invoiceDAO.getInvoiceItems(conn, id);
         for (InvoiceItem item : items) {
-            productService.updateStock(conn, item.getProductId(), item.getQuantity()); // Hoàn trả sốlượng
-            // Ghi log hoàn trả
+            productService.updateStock(conn, item.getProductId(), item.getQuantity());
             inventoryLogService.addLog(conn, item.getProductId(), item.getQuantity(),
                     "Hoàn trả từ việc xóa HĐ #" + id);
         }
@@ -278,7 +275,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             throws SQLException {
         InvoiceDAO invoiceDAO = new InvoiceDAO();
         if (keyword == null || keyword.trim().isEmpty()) {
-            return getAllInvoices(conn); 
+            return getAllInvoices(conn);
         }
 
         return ServiceResult.success(invoiceDAO.searchInvoices(conn, keyword));
@@ -295,7 +292,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             e.printStackTrace();
             if (conn != null) {
                 try {
-                    conn.rollback(); // Rollback on error
+                    conn.rollback();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -304,7 +301,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         } finally {
             if (conn != null) {
                 try {
-                    conn.setAutoCommit(true); 
+                    conn.setAutoCommit(true);
                     conn.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -316,7 +313,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public ServiceResult<Invoice> updateInvoice(Connection conn, int invoiceId, int customerId,
             int staffId, List<InvoiceItem> newItems) throws SQLException {
-        conn.setAutoCommit(false); 
+        conn.setAutoCommit(false);
 
         InvoiceDAO invoiceDAO = new InvoiceDAO();
 
@@ -338,8 +335,8 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
         // 2. Cập nhật thông tin header của hóa đơn
-        boolean updateHeaderSuccess =
-                invoiceDAO.updateInvoiceHeader(conn, invoiceId, customerId, staffId);
+        boolean updateHeaderSuccess
+                = invoiceDAO.updateInvoiceHeader(conn, invoiceId, customerId, staffId);
         if (!updateHeaderSuccess) {
             conn.rollback();
             return ServiceResult.failure("Cập nhật thông tin hóa đơn thất bại.");
@@ -350,8 +347,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         // 4. Thêm các item mới và cập nhật tồn kho, ghi log
         for (InvoiceItem newItem : newItems) {
-            ServiceResult<Product> productResult =
-                    productService.getProductById(conn, newItem.getProductId());
+            ServiceResult<Product> productResult
+                    = productService.getProductById(conn, newItem.getProductId());
             if (!productResult.isSuccess()) {
                 conn.rollback();
                 return ServiceResult
@@ -379,9 +376,9 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
         // 5. Tính toán lại tổng tiền hóa đơn
-        calculateTotal(conn, invoiceId); // This method already updates the total in DB
+        calculateTotal(conn, invoiceId);
 
-        conn.commit(); // Commit transaction
+        conn.commit();
         return ServiceResult.success(invoiceDAO.getInvoiceDetails(conn, invoiceId),
                 "Cập nhật hóa đơn thành công.");
     }

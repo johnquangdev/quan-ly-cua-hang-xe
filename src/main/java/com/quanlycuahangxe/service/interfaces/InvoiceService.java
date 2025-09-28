@@ -21,10 +21,8 @@ public interface InvoiceService {
     ServiceResult<List<Invoice>> getAllInvoices();
     ServiceResult<List<Invoice>> getAllInvoices(Connection conn) throws SQLException;
 
-    ServiceResult<InvoiceItem> addInvoiceItem(int invoiceId, int productId, int quantity,
-            double price);
-    ServiceResult<InvoiceItem> addInvoiceItem(Connection conn, int invoiceId, int productId, int quantity,
-            double price) throws SQLException;
+    ServiceResult<InvoiceItem> addInvoiceItem(int invoiceId, int productId, int quantity,double price);
+    ServiceResult<InvoiceItem> addInvoiceItem(Connection conn, int invoiceId, int productId, int quantity,double price) throws SQLException;
 
     ServiceResult<Void> removeInvoiceItem(int invoiceItemId);
     ServiceResult<Void> removeInvoiceItem(Connection conn, int invoiceItemId) throws SQLException;
@@ -49,8 +47,6 @@ public interface InvoiceService {
     ServiceResult<List<Invoice>> searchInvoices(String keyword);
     ServiceResult<List<Invoice>> searchInvoices(Connection conn, String keyword) throws SQLException;
 
-    ServiceResult<Invoice> updateInvoice(int invoiceId, int customerId, int staffId,
-            List<InvoiceItem> newItems);
-    ServiceResult<Invoice> updateInvoice(Connection conn, int invoiceId, int customerId, int staffId,
-            List<InvoiceItem> newItems) throws SQLException;
+    ServiceResult<Invoice> updateInvoice(int invoiceId, int customerId, int staffId,List<InvoiceItem> newItems);
+    ServiceResult<Invoice> updateInvoice(Connection conn, int invoiceId, int customerId, int staffId,List<InvoiceItem> newItems) throws SQLException;
 }

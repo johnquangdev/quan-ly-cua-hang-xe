@@ -9,8 +9,6 @@ public class InventoryLog {
     private int changeAmount;
     private String reason;
     private LocalDateTime createdAt;
-    // Lưu ý: Bảng của bạn chưa có user_id, tôi sẽ tạm thời bỏ qua.
-    // Nếu cần追적 ai đã thay đổi, chúng ta có thể thêm cột user_id sau.
 
     public InventoryLog() {
     }

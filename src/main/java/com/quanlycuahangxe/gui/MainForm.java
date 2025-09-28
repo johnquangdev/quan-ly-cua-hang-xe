@@ -1,5 +1,10 @@
 package com.quanlycuahangxe.gui;
 
+import com.quanlycuahangxe.model.User;
+import com.quanlycuahangxe.service.impl.UserServiceImpl;
+import com.quanlycuahangxe.service.interfaces.UserService;
+import com.quanlycuahangxe.utils.IconHelper;
+import com.quanlycuahangxe.utils.ServiceResult;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +13,6 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,12 +27,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
-import com.quanlycuahangxe.model.User;
-import com.quanlycuahangxe.service.impl.UserServiceImpl;
-import com.quanlycuahangxe.service.interfaces.UserService;
-import com.quanlycuahangxe.utils.IconHelper;
-import com.quanlycuahangxe.utils.ServiceResult;
 
 public class MainForm extends JFrame {
 
@@ -155,7 +153,7 @@ public class MainForm extends JFrame {
         });
 
         // Thêm vào giao diện
-        add(btnUserInfo, BorderLayout.NORTH); // nút user ở trên cùng
+        add(btnUserInfo, BorderLayout.NORTH);
         add(sideMenu, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
 
@@ -167,7 +165,7 @@ public class MainForm extends JFrame {
                     = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thoát chương trình?",
                             "Xác nhận thoát", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                System.exit(0); // Dừng chương trình
+                System.exit(0);
             }
         });
 
@@ -199,9 +197,9 @@ public class MainForm extends JFrame {
         private UserService userService;
 
         public ChangePasswordDialog(Frame owner, User user) {
-            super(owner, "Đổi mật khẩu", true); // Modal dialog
+            super(owner, "Đổi mật khẩu", true);
             this.user = user;
-            this.userService = new UserServiceImpl(); // Initialize service
+            this.userService = new UserServiceImpl();
 
             initDialogUI();
             setSize(400, 300);
@@ -236,7 +234,7 @@ public class MainForm extends JFrame {
             JButton btnCancel = new JButton("Hủy");
 
             btnChange.addActionListener(e -> handleChangePasswordAction());
-            btnCancel.addActionListener(e -> dispose()); // Close dialog on cancel
+            btnCancel.addActionListener(e -> dispose());
 
             buttonPanel.add(btnChange);
             buttonPanel.add(btnCancel);
@@ -248,7 +246,7 @@ public class MainForm extends JFrame {
             String newPassword = new String(newPasswordField.getPassword());
             String confirmPassword = new String(confirmPasswordField.getPassword());
 
-            errorLabel.setText(""); // Clear previous errors
+            errorLabel.setText("");
 
             if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
                 errorLabel.setText("Vui lòng điền đầy đủ các trường mật khẩu.");

@@ -19,7 +19,7 @@ public class Brand {
 
     @Override
     public String toString() {
-        return name; // Hiển thị tên brand trong combo box
+        return name; 
     }
 
     public Brand(int id, String name, String description) {

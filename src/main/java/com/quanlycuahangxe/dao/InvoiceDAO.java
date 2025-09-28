@@ -41,16 +41,16 @@ public class InvoiceDAO {
                     inv.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
                     inv.setTotalAmount(rs.getDouble("total_amount"));
 
-                    inv.setItems(getInvoiceItems(conn, invoiceId)); // Tải các mặt hàng của hóa đơn
+                    inv.setItems(getInvoiceItems(conn, invoiceId)); 
 
                     return inv;
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
-            e.printStackTrace(); // Ghi log lỗi chi tiết
-            e.printStackTrace(); // Ghi log lỗi chi tiết
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
+            e.printStackTrace(); 
+            e.printStackTrace(); 
+            e.printStackTrace(); 
         }
         return null;
     }
@@ -82,7 +82,7 @@ public class InvoiceDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi
+            e.printStackTrace(); 
         }
         return items;
     }
@@ -101,7 +101,7 @@ public class InvoiceDAO {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi
+            e.printStackTrace(); 
             return false;
         }
     }
@@ -119,7 +119,7 @@ public class InvoiceDAO {
             stmt.setInt(1, id);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi
+            e.printStackTrace(); 
             return false;
         }
     }
@@ -141,7 +141,7 @@ public class InvoiceDAO {
             ps.setInt(3, invoiceId);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi
+            e.printStackTrace(); 
             return false;
         }
     }
@@ -161,14 +161,14 @@ public class InvoiceDAO {
             ps.setInt(1, customerId);
             ps.setInt(2, userId);
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setDouble(4, 0); // Tổng tiền ban đầu là 0
+            ps.setDouble(4, 0); 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("id");
                 return new Invoice(id, customerId, userId, LocalDateTime.now(), 0);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi
+            e.printStackTrace(); 
         }
         return null;
     }
@@ -191,7 +191,7 @@ public class InvoiceDAO {
                         rs.getDouble("total_amount"));
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi
+            e.printStackTrace(); 
         }
         return null;
     }
@@ -224,7 +224,7 @@ public class InvoiceDAO {
                 list.add(inv);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
         }
         return list;
     }
@@ -257,7 +257,7 @@ public class InvoiceDAO {
                 list.add(inv);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
         }
         return list;
     }
@@ -291,7 +291,7 @@ public class InvoiceDAO {
                 list.add(inv);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
         }
         return list;
     }
@@ -328,7 +328,7 @@ public class InvoiceDAO {
                 list.add(inv);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
         }
         return list;
     }
@@ -358,7 +358,7 @@ public class InvoiceDAO {
                 return new InvoiceItem(id, invoiceId, productId, quantity, price);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
         }
         return null;
     }
@@ -376,7 +376,7 @@ public class InvoiceDAO {
             ps.setInt(1, invoiceItemId);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
             return false;
         }
     }
@@ -398,7 +398,7 @@ public class InvoiceDAO {
                 return rs.getDouble("total");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
         }
         return 0;
     }
@@ -417,7 +417,7 @@ public class InvoiceDAO {
             ps.setInt(2, invoiceId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Ghi log lỗi chi tiết
+            e.printStackTrace(); 
         }
     }
 }

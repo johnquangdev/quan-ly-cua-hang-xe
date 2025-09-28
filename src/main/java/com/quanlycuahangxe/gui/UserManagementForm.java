@@ -1,11 +1,14 @@
 package com.quanlycuahangxe.gui;
 
+import com.quanlycuahangxe.model.User;
+import com.quanlycuahangxe.service.impl.UserServiceImpl;
+import com.quanlycuahangxe.service.interfaces.UserService;
+import com.quanlycuahangxe.utils.ServiceResult;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,11 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import com.quanlycuahangxe.model.User;
-import com.quanlycuahangxe.service.impl.UserServiceImpl;
-import com.quanlycuahangxe.service.interfaces.UserService;
-import com.quanlycuahangxe.utils.ServiceResult;
 
 public class UserManagementForm extends JFrame {
 
@@ -60,7 +58,7 @@ public class UserManagementForm extends JFrame {
         // Password field (hidden in edit mode)
         JPanel passwordPanel = new JPanel(new GridBagLayout());
         GridBagConstraints passwordGbc = new GridBagConstraints();
-        passwordGbc.insets = new Insets(0, 0, 0, 0); 
+        passwordGbc.insets = new Insets(0, 0, 0, 0);
         passwordGbc.anchor = GridBagConstraints.WEST;
         passwordGbc.fill = GridBagConstraints.HORIZONTAL;
         passwordGbc.gridx = 0;
@@ -75,7 +73,7 @@ public class UserManagementForm extends JFrame {
         gbc.gridy++;
         gbc.gridwidth = 2;
         mainPanel.add(passwordPanel, gbc);
-        gbc.gridwidth = 1; 
+        gbc.gridwidth = 1;
 
         gbc.gridx = 0;
         gbc.gridy++;
@@ -116,11 +114,11 @@ public class UserManagementForm extends JFrame {
         if (staff != null) {
             txtUsername.setText(staff.getUsername());
             txtUsername.setEnabled(false);
-            passwordPanel.setVisible(false); // Không cho đổi password 
+            passwordPanel.setVisible(false);
             txtFullName.setText(staff.getFullName());
             txtEmail.setText(staff.getEmail());
             cbRole.setSelectedItem(staff.getRole());
-            cbRole.setEnabled(false); // Không cho đổi role khi edit
+            cbRole.setEnabled(false);
         }
 
         // Nút lưu
@@ -171,9 +169,9 @@ public class UserManagementForm extends JFrame {
 
         // Validate full name trùng lặp
         List<User> allUsers = userService.getAllUsers().getData();
-        boolean duplicateName =
-                allUsers.stream().anyMatch(u -> u.getFullName().equalsIgnoreCase(fullName)
-                        && (staff == null || u.getId() != staff.getId()));
+        boolean duplicateName
+                = allUsers.stream().anyMatch(u -> u.getFullName().equalsIgnoreCase(fullName)
+                && (staff == null || u.getId() != staff.getId()));
         if (duplicateName) {
             showError("Tên người dùng đã tồn tại");
             return;
