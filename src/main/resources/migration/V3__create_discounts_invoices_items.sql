@@ -1,27 +1,29 @@
--- Bảng discounts
 CREATE TABLE discounts (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    percent INTEGER CHECK (percent >= 0 AND percent <= 100),
+    name VARCHAR,
+    percent INTEGER,
     start_date DATE,
     end_date DATE
 );
 
--- Bảng invoices
 CREATE TABLE invoices (
     id SERIAL PRIMARY KEY,
-    customer_id INTEGER REFERENCES customers(id),
-    staff_id INTEGER REFERENCES staffs(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    total_amount NUMERIC(12,2)
+    customer_id BIGINT,
+    user_id BIGINT,
+    created_at TIMESTAMP,
+    total_amount NUMERIC,
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customers(id),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Bảng invoice_items
 CREATE TABLE invoice_items (
     id SERIAL PRIMARY KEY,
-    invoice_id INTEGER REFERENCES invoices(id),
-    product_id INTEGER REFERENCES products(id),
+    invoice_id INTEGER,
+    product_id INTEGER,
     quantity INTEGER NOT NULL,
-    price NUMERIC(12,2) NOT NULL,
-    discount_id INTEGER REFERENCES discounts(id)
+    price NUMERIC NOT NULL,
+    discount_id INTEGER,
+    CONSTRAINT fk_invoice FOREIGN KEY (invoice_id) REFERENCES invoices(id),
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES products(id),
+    CONSTRAINT fk_discount FOREIGN KEY (discount_id) REFERENCES discounts(id)
 );

@@ -95,37 +95,30 @@ Dự án được tổ chức theo kiến trúc phân lớp, sử dụng các g�
 
 Để cài đặt và chạy ứng dụng, bạn cần:
 
-1.  **Cài đặt Docker và Docker Compose**:
-    *   Đảm bảo bạn đã cài đặt Docker Desktop (bao gồm Docker Engine và Docker Compose) trên hệ thống của mình. Bạn có thể tải xuống từ [trang chủ Docker](https://www.docker.com/products/docker-desktop/).
-2.  **Khởi động Cơ sở dữ liệu PostgreSQL bằng Docker Compose**:
-    *   Mở terminal trong thư mục gốc của dự án.
-    *   Chạy lệnh sau để khởi động dịch vụ PostgreSQL:
-        ```bash
-        docker-compose up -d postgres
-        ```
-    *   Đảm bảo dịch vụ PostgreSQL đã chạy thành công trước khi tiếp tục.
-3.  **Môi trường phát triển Java**: Đảm bảo bạn đã cài đặt JDK (Java Development Kit) phiên bản 11 trở lên.
-4.  **Cấu hình kết nối DB**:
+1. **Cấu hình kết nối DB**:
     *   Tạo một file `.env` trong thư mục gốc của dự án (nếu chưa có) và cấu hình các biến môi trường sau:
         ```
         DB_URL=jdbc:postgresql://localhost:5432/product
         DB_USER=postgres
         DB_PASSWORD=1234
+        DB_POSTGRES=product
+        DB_PORTS=5432
         ```
     *   (Lưu ý: Thay đổi `DB_URL`, `DB_USER`, `DB_PASSWORD` nếu cấu hình PostgreSQL của bạn khác.)
-5.  **Chạy Flyway Migrations**:
-    *   Khi ứng dụng Java được khởi chạy, `FlywayMigrator` sẽ tự động chạy để đảm bảo cấu trúc cơ sở dữ liệu được cập nhật.
-6.  **Biên dịch và chạy ứng dụng Java**:
-    *   Sử dụng IDE (như IntelliJ IDEA, NetBeans) để biên dịch và chạy lớp `Main.java`.
-    *   Hoặc bạn có thể biên dịch và chạy từ terminal:
+2.  **Khởi động Cơ sở dữ liệu PostgreSQL bằng Docker Compose**:
+    *   Mở terminal trong thư mục gốc của dự án.
+    *   Chạy lệnh sau để khởi động dịch vụ PostgreSQL:
         ```bash
-        mvn clean install
-        java -jar target/quanlycuahangxe-1.0-SNAPSHOT.jar
+        docker-compose up -d
         ```
+    *   Đảm bảo dịch vụ PostgreSQL đã chạy thành công trước khi tiếp tục.
+3.  **Biên dịch và chạy ứng dụng Java**:
+    *   Sử dụng IDE (như IntelliJ IDEA, NetBeans) để biên dịch và chạy lớp `Main.java`.
 
 ### Chạy ứng dụng bằng script (khuyến nghị)
 
 Để đơn giản hóa quá trình xây dựng và chạy, bạn có thể sử dụng các script được cung cấp:
+**Lưu ý:** Đảm bảo rằng cơ sở dữ liệu PostgreSQL đã được khởi động(docker) và file `.env` đã được cấu hình đúng trước khi chạy script.
 
 *   **Trên Linux/macOS:**
     Mở terminal trong thư mục gốc của dự án và chạy:
@@ -133,20 +126,16 @@ Dự án được tổ chức theo kiến trúc phân lớp, sử dụng các g�
     chmod +x run.sh # Cấp quyền thực thi cho script
     ./run.sh
     ```
-
 *   **Trên Windows:**
     Mở Command Prompt hoặc PowerShell trong thư mục gốc của dự án và chạy:
     ```cmd
     run.bat
     ```
-
 Các script này sẽ tự động thực hiện các bước sau:
 1.  Build dự án bằng Maven, tạo ra một file JAR thực thi (`quan-ly-cua-hang-xe-1.0-SNAPSHOT.jar`).
 2.  Kiểm tra sự tồn tại của file `.env`.
 3.  Chạy ứng dụng Java từ file JAR đã tạo.
 
-**Lưu ý:** Đảm bảo rằng cơ sở dữ liệu PostgreSQL đã được khởi động và file `.env` đã được cấu hình đúng trước khi chạy script.
-
 ### Tài khoản Admin mặc định
-- **Tên đăng nhập**: `Admin`
+- **Tên đăng nhập**: `admin`
 - **Mật khẩu**: `Admin@123`
